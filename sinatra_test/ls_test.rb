@@ -1,6 +1,8 @@
 require 'sinatra'
+require 'execjs'
+require 'shotgun'
 
-get '/test' do
-	"Hello World"
+get '/' do
+  erb :ls_test_view
 end
 

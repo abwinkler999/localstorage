@@ -1,0 +1,80 @@
+<head>
+    <title>Simple To-Do List</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+var toDos = new Array();
+function toDoSaver(){
+
+for (var i = 0; i < toDos.length; i ++)
+    {
+      localStorage["todo." + i + ".text"] = toDos[i];
+    }
+    return true;
+}
+  
+function toDoLoader(){
+
+    for (var i = 0; i < 100; i++) {
+      if (localStorage["todo." + i + ".text"] != undefined)
+      {
+        window.console.log("Loaded item:" + localStorage["todo." + i + ".text"])
+        toDos.push(localStorage["todo." + i + ".text"]);
+      }
+    }
+}
+  
+function toDoDisplayer(){
+    toDos.forEach(function(value)
+    {
+      $("#items").append("<li>" + value + "</li>");
+      window.console.log("Displayed: " + value);
+    })
+}
+/*
+$("li").click(function () {
+  $(this).slideUp;
+  alert("beep");
+});
+*/
+
+$(window).load(function() {  
+    toDoLoader();
+    toDoDisplayer();
+  
+    $("#submit_button").on('click', function(){
+        window.console.log("Appending item");
+        toDos.push($("input:first").val());
+        
+        $("#items").append("<li>" + $("input:first").val() + "</li>");
+        toDos.forEach(function(value)
+        {
+          window.console.log("item: " + value);
+        })
+        toDoSaver();
+     });      
+    
+    $("li").on('click', function () {
+        /*
+        window.console.log("Click happened");
+        $(this).slideUp();
+        */
+        
+      });
+      
+    });
+    
+</script>
+</head>
+<body>
+    <h1>To-Do List:</h1>
+  
+  <ol id="items">
+  <!-- No list items present at load -->
+  </ol>
+
+<form id="target">
+<input type = "text" value = "Value text" />
+<input id="submit_button" type = "button" value = "Submit Button" />
+</form>
+
+</body>
